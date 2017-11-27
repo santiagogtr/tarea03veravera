@@ -13,6 +13,16 @@ void EnemyShip::update(float deltaTime) {
 	_position.y -= 5;
 }
 
+bool EnemyShip::outside() {
+	if (_position.y < 20) return true;
+	return false;
+}
+
+
+bool EnemyShip::colision(Vullet* bullet) {
+	if (bullet->collision(_position.x,_position.y))return true;
+	return false;
+}
 
 EnemyShip::~EnemyShip()
 {

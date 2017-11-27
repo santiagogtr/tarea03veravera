@@ -132,7 +132,33 @@ void GamePlayScreen::update() {
 	for (size_t i = 0; i < _enemies.size(); i++)
 	{
 		_enemies[i]->update(0.1f);
+		if (_enemies[i]->outside()) {
+			_enemies.erase(_enemies.begin() + i);
+		}
 	}
+	for (size_t i = 0; i < _bullets.size(); i++)
+	{
+		_bullets[i]->update(0.1f);
+		if (_bullets[i]->outside()) {
+			_bullets.erase(_bullets.begin() + i);
+		}
+	}
+
+	for (size_t e = 0; e < _enemies.size(); e++)
+	{
+
+		for (size_t b = 0; b < _bullets.size(); b++)
+		{
+
+
+			if (_enemies[e]->colision(_bullets[b])) {
+				_enemies.erase(_enemies.begin() + e);
+				_bullets.erase(_bullets.begin() + b);
+			}
+		}
+
+	}
+
 	if (_game->_inputManager.isKeyDown(SDLK_f)) {
 		_bullets.push_back(new Vullet("Textures/naves/spaceMissiles_001.png", _ship->getPosition()));
 	}
