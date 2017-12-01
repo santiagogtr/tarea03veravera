@@ -32,6 +32,8 @@ private:
 	int _score;
 	int _bullet;
 	void drawHUD();
+	int tiempo;
+	int puntaje;
 	vector<EnemyShip*> _enemies;
 public:
 	GamePlayScreen(Window* window);
