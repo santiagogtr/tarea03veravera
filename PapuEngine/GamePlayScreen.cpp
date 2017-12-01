@@ -174,11 +174,11 @@ void  GamePlayScreen::drawHUD() {
 	char buffer[256];
 
 	_hudBatch.begin();
-	sprintf_s(buffer, " BULLETS %d", 10);
-	_spriteFont->draw(_hudBatch, buffer, glm::vec2(0, 0),
+	sprintf_s(buffer, " TIEMPO %d", 10);
+	_spriteFont->draw(_hudBatch, buffer, glm::vec2(0, 450),
 		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
-	sprintf_s(buffer, " SCORE %d", 10);
-	_spriteFont->draw(_hudBatch, buffer, glm::vec2(0, 36),
+	sprintf_s(buffer, " PUNTAJE %d", 10);
+	_spriteFont->draw(_hudBatch, buffer, glm::vec2(520, 450),
 		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
 	_hudBatch.end();
 	_hudBatch.renderBatch();
