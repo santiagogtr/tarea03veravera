@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "GLS_Program.h"
 #include "Background.h"
+#include "SpriteFont.h"
 #include "Camera2D.h"
 #include "Button.h"
 #include "SpriteBacth.h"
@@ -14,6 +15,7 @@ private:
 	bool btnGameClicked;
 	GLS_Program _program;
 	SpriteBacth _spriteBacth;
+	SpriteFont* _spriteFont;
 	Camera2D _camera2D;
 	Background* _background;
 	Button* _button;

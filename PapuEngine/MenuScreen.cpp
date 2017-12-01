@@ -1,4 +1,4 @@
-#include "MenuScreen.h"
+﻿#include "MenuScreen.h"
 #include "ScreenIndices.h"
 #include "Game.h"
 #include <iostream>
@@ -46,6 +46,7 @@ void MenuScreen::onEntry() {
 	_spriteBacth.init();
 	_background = new Background("Textures/naves/menu.png");
 	_button = new Button("Textures/naves/menu_button.png");
+	_spriteFont = new SpriteFont("Fonts/arial.ttf", 64);
 }
 
 void MenuScreen::update() {
@@ -76,10 +77,17 @@ void MenuScreen::draw() {
 	GLuint imageLocation = _program.getUniformLocation("myImage");
 	glUniform1i(imageLocation, 0);
 
+	char buffer[256];
 	_spriteBacth.begin();
 	_background->draw(_spriteBacth);
 	_button->draw(_spriteBacth);
-
+	sprintf_s(buffer, " Examen Final Bica CorazÓn ");
+	_spriteFont->draw(_spriteBacth, buffer, glm::vec2(0, 0),
+		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
+	sprintf_s(buffer, " Santiago Gómez de la torre Rodríguez ");
+	_spriteFont->draw(_spriteBacth, buffer, glm::vec2(0, 36),
+		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
+	_spriteBacth.renderBatch();
 	_spriteBacth.end();
 	_spriteBacth.renderBatch();
 
