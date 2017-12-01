@@ -1,6 +1,6 @@
 #include "ScreenList.h"
 #include "IGameScreen.h"
-
+#include "App.h"
 
 ScreenList::ScreenList(Game* game):_game(game)
 {
@@ -23,6 +23,8 @@ void ScreenList::destroy() {
 	_currentIndex = -1;
 	_screens.resize(0);
 }
+
+
 
 
 ScreenList::~ScreenList()

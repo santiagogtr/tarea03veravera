@@ -1,3 +1,4 @@
-﻿  Game.cpp
-  PapuEngine.vcxproj -> C:\Users\Carlos\Desktop\Universidad\Funda\fundamentos-201702-sonido\Debug\PapuEngine.exe
-  PapuEngine.vcxproj -> C:\Users\Carlos\Desktop\Universidad\Funda\fundamentos-201702-sonido\Debug\PapuEngine.pdb (Partial PDB)
+﻿  MenuScreen.cpp
+  LINK : E:\Viernes\Fundamentos_De_La_Teoria_De_Juegos\tarea03veravera\Debug\PapuEngine.exe not found or not built by the last incremental link; performing full link
+  PapuEngine.vcxproj -> E:\Viernes\Fundamentos_De_La_Teoria_De_Juegos\tarea03veravera\Debug\PapuEngine.exe
+  PapuEngine.vcxproj -> E:\Viernes\Fundamentos_De_La_Teoria_De_Juegos\tarea03veravera\Debug\PapuEngine.pdb (Partial PDB)

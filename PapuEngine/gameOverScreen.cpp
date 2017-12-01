@@ -59,7 +59,7 @@ void gameOverScreen::update() {
 		if (_button->clicked(_game->_inputManager.getMouseCoords()) && !btnGameClicked) {
 			btnGameClicked = true;
 			std::cout << "Button clicked" << std::endl;
-			_currentState = ScreenState::EXIT_APPLICATION;
+			_currentState = ScreenState::CHANGE_NEXT;
 
 		}
 	}

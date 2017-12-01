@@ -100,6 +100,11 @@ void Game::update() {
 				puntajeTotal = _currentScreen->getPuntajeSuperTotal();
 			}
 				_currentScreen->onExit();
+				if (_screenList && _currentScreen->getIndex() == 2) {
+					_screenList->destroy();
+					addScreens();
+					_currentScreen = _screenList->getCurrent();
+				}else
 				_currentScreen = 
 							_screenList->moveNext();
 				

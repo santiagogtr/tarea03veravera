@@ -44,13 +44,17 @@ void MenuScreen::onEntry() {
 	_camera2D.init(_window->getScreenWidth(), _window->getScreenHeight());
 	_camera2D.setPosition(glm::vec2(_window->getScreenWidth() / 2.0f, _window->getScreenHeight() / 2.0f));
 	_spriteBacth.init();
+	timer = 0;
 	_background = new Background("Textures/naves/menu.png");
 	_button = new Button("Textures/naves/menu_button.png");
 	_spriteFont = new SpriteFont("Fonts/arial.ttf", 64);
+	btnGameClicked = true;
 }
 
 void MenuScreen::update() {
 	_camera2D.update();
+	if(timer >60)btnGameClicked = false;
+	timer++;
 	if (_game->_inputManager.isKeyDown(SDL_BUTTON_LEFT)) {
 		if (_button->clicked(_game->_inputManager.getMouseCoords()) && !btnGameClicked) {
 			btnGameClicked = true;

@@ -19,6 +19,7 @@ private:
 	Camera2D _camera2D;
 	Background* _background;
 	Button* _button;
+	int timer;
 
 public:
 	MenuScreen(Window* window);

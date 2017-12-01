@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+class app;
 class Game;
 class IGameScreen;
 
@@ -17,6 +18,7 @@ public:
 protected:
 	std::vector<IGameScreen*> _screens;
 	Game* _game;
+	app** _app;
 	int _currentIndex = -1;
 };
 
