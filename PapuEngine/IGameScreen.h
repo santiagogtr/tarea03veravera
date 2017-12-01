@@ -11,6 +11,7 @@ class IGameScreen
 {
 protected:
 	int _screenIndex = 1;
+	int puntajeSuperTotal = 0;
 	ScreenState _currentState = ScreenState::NONE;
 	Game* _game = nullptr;
 public:
@@ -31,6 +32,12 @@ public:
 	}
 	int getIndex() const {
 		return _screenIndex;
+	}
+	int getPuntajeSuperTotal() const {
+		return puntajeSuperTotal;
+	}
+	void setPuntajeSuperTotal(int p) {
+		puntajeSuperTotal = p;
 	}
 
 	void setRunning() {

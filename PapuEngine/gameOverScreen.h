@@ -8,8 +8,9 @@
 #include "Button.h"
 #include "SpriteBacth.h"
 
-class MenuScreen : public IGameScreen
+class gameOverScreen : public IGameScreen
 {
+
 private:
 	Window* _window = nullptr;
 	bool btnGameClicked;
@@ -19,9 +20,10 @@ private:
 	Camera2D _camera2D;
 	Background* _background;
 	Button* _button;
+	int puntajeTotal;
 
 public:
-	MenuScreen(Window* window);
+	gameOverScreen(Window* window);
 	virtual void build() override;
 	virtual void destroy() override;
 	virtual void onExit() override;
@@ -34,6 +36,7 @@ public:
 	virtual int getNextScreen() const override;
 	virtual int getPreviousScreen() const override;
 	virtual void checkInput() override;
-	~MenuScreen();
+	virtual void setPuntaje(int puntaje);
+	~gameOverScreen();
 };
 

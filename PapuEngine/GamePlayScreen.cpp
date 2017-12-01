@@ -40,6 +40,9 @@ void GamePlayScreen::onEntry() {
 	_spriteBatch.init();
 	_hudBatch.init();
 	initGUI();
+	tiempo = 0;
+	puntaje = 0;
+	puntajeTotal = 0;
 	_camera2d.init(_window->getScreenWidth(),
 		_window->getScreenHeight());
 	_camera2d.setPosition(
@@ -119,15 +122,34 @@ void GamePlayScreen::update() {
 	_ship->update(0.01);
 	checkInput();
 	_elapsed += 0.1f;
-	if (_elapsed >= 0.1f) {
+	if (_elapsed >= 6.0f) {
+		tiempo++;
 		_elapsed = 0;
-		std::mt19937 randomEngine;
-		randomEngine.seed(time(nullptr));
-		std::uniform_real_distribution<float>
-			randX(0, _window->getScreenWidth());
-		_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
-			randX(randomEngine), 800),
-			"Textures/naves/spaceShips_001.png"));
+		if (tiempo % 2 == 0) {
+			
+			std::mt19937 randomEngine;
+			randomEngine.seed(time(nullptr));
+			std::uniform_real_distribution<float>
+				randX(0, _window->getScreenWidth());
+			int randomColor = randX(randomEngine);
+			if (randomColor % 3) {
+				_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+					randX(randomEngine), 800),
+					"Textures/naves/amarillo.png", 1));
+			}
+			else {
+				if (randomColor % 2) {
+					_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+						randX(randomEngine), 800),
+						"Textures/naves/rojo.png", 2));
+				}
+				else {
+					_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+						randX(randomEngine), 800),
+						"Textures/naves/verde.png", 3));
+				}
+			}
+		}
 	}
 	for (size_t i = 0; i < _enemies.size(); i++)
 	{
@@ -147,21 +169,54 @@ void GamePlayScreen::update() {
 	for (size_t e = 0; e < _enemies.size(); e++)
 	{
 
-		for (size_t b = 0; b < _bullets.size(); b++)
-		{
+		
 
 
-			if (_enemies[e]->colision(_bullets[b])) {
+			if (_enemies[e]->collideWithAgent(_ship)) {
+				int color = _enemies[e]->getColor();
+				if (_game->_inputManager.isKeyDown(SDLK_q)) {
+					if (color == 1) {
+						puntaje += 10;
+						puntajeTotal += 10;
+					}
+					if (color == 2)
+						puntaje -= 10;
+					if (color == 3)
+						puntaje -= 20;
+				}
+				if (_game->_inputManager.isKeyDown(SDLK_w)) {
+					if (color == 1)
+						puntaje -= 15;
+					if (color == 2) {
+						puntaje += 20;
+						puntajeTotal += 20;
+					}
+					if (color == 3)
+						puntaje -= 15;
+				}
+				if (_game->_inputManager.isKeyDown(SDLK_e)) {
+					if (color == 1)
+						puntaje = puntaje/2;
+					if (color == 2)
+						puntaje -= 5;
+					if (color == 3) {
+						puntajeTotal += puntaje;
+						puntaje = puntaje * 2;
+					}
+				}
 				_enemies.erase(_enemies.begin() + e);
-				_bullets.erase(_bullets.begin() + b);
+				if (puntaje<0) {
+					puntajeSuperTotal = puntajeTotal;
+					_currentState = ScreenState::CHANGE_NEXT;
+
+					
+				}
 			}
-		}
-
+		
 	}
 
-	if (_game->_inputManager.isKeyDown(SDLK_f)) {
-		_bullets.push_back(new Vullet("Textures/naves/spaceMissiles_001.png", _ship->getPosition()));
-	}
+	
+
 }
 
 void  GamePlayScreen::drawHUD() {
@@ -174,11 +229,11 @@ void  GamePlayScreen::drawHUD() {
 	char buffer[256];
 
 	_hudBatch.begin();
-	sprintf_s(buffer, " BULLETS %d", 10);
-	_spriteFont->draw(_hudBatch, buffer, glm::vec2(0, 0),
+	sprintf_s(buffer, " TIEMPO %d", tiempo);
+	_spriteFont->draw(_hudBatch, buffer, glm::vec2(0, 450),
 		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
-	sprintf_s(buffer, " SCORE %d", 10);
-	_spriteFont->draw(_hudBatch, buffer, glm::vec2(0, 36),
+	sprintf_s(buffer, " PUNTAJE %d", puntaje);
+	_spriteFont->draw(_hudBatch, buffer, glm::vec2(520, 450),
 		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
 	_hudBatch.end();
 	_hudBatch.renderBatch();
@@ -204,7 +259,7 @@ void GamePlayScreen::checkInput() {
 }
 
 int GamePlayScreen::getNextScreen() const {
-	return SCREEN_INDEX_NO_SCREEN;
+	return SCREEN_INDEX_GAMEOVER;
 };
 
 int GamePlayScreen::getPreviousScreen() const {
