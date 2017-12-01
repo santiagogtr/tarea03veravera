@@ -91,16 +91,25 @@ void Game::update() {
 	if (_currentScreen) {
 		switch (_currentScreen->getState())
 		{
-			case ScreenState::RUNNING:
-				_currentScreen->update();
-				break;
-			case ScreenState::CHANGE_NEXT:
+		case ScreenState::RUNNING:
+			_currentScreen->update();
+			break;
+		case ScreenState::CHANGE_NEXT:
+			if (_currentScreen->getIndex() == 1)
+			{
+				puntajeTotal = _currentScreen->getPuntajeSuperTotal();
+			}
 				_currentScreen->onExit();
 				_currentScreen = 
 							_screenList->moveNext();
+				
 				if (_currentScreen) {
 					_currentScreen->setRunning();
 					_currentScreen->onEntry();
+				}
+				if (_currentScreen->getIndex() == 2)
+				{
+					_currentScreen->setPuntajeSuperTotal(puntajeTotal);
 				}
 				break;
 			case ScreenState::CHANGE_PREVIOUS:

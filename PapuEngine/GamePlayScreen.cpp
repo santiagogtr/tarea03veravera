@@ -42,6 +42,7 @@ void GamePlayScreen::onEntry() {
 	initGUI();
 	tiempo = 0;
 	puntaje = 0;
+	puntajeTotal = 0;
 	_camera2d.init(_window->getScreenWidth(),
 		_window->getScreenHeight());
 	_camera2d.setPosition(
@@ -174,8 +175,10 @@ void GamePlayScreen::update() {
 			if (_enemies[e]->collideWithAgent(_ship)) {
 				int color = _enemies[e]->getColor();
 				if (_game->_inputManager.isKeyDown(SDLK_q)) {
-					if (color == 1)
+					if (color == 1) {
 						puntaje += 10;
+						puntajeTotal += 10;
+					}
 					if (color == 2)
 						puntaje -= 10;
 					if (color == 3)
@@ -184,8 +187,10 @@ void GamePlayScreen::update() {
 				if (_game->_inputManager.isKeyDown(SDLK_w)) {
 					if (color == 1)
 						puntaje -= 15;
-					if (color == 2)
+					if (color == 2) {
 						puntaje += 20;
+						puntajeTotal += 20;
+					}
 					if (color == 3)
 						puntaje -= 15;
 				}
@@ -194,12 +199,14 @@ void GamePlayScreen::update() {
 						puntaje = puntaje/2;
 					if (color == 2)
 						puntaje -= 5;
-					if (color == 3)
-						puntaje = puntaje*2;
+					if (color == 3) {
+						puntajeTotal += puntaje;
+						puntaje = puntaje * 2;
+					}
 				}
 				_enemies.erase(_enemies.begin() + e);
 				if (puntaje<0) {
-					
+					puntajeSuperTotal = puntajeTotal;
 					_currentState = ScreenState::CHANGE_NEXT;
 
 					
@@ -252,7 +259,7 @@ void GamePlayScreen::checkInput() {
 }
 
 int GamePlayScreen::getNextScreen() const {
-	return SCREEN_INDEX_NO_SCREEN;
+	return SCREEN_INDEX_GAMEOVER;
 };
 
 int GamePlayScreen::getPreviousScreen() const {

@@ -26,12 +26,14 @@ public:
 protected:
 	bool init();
 	float _fps = 0.0f;
+	int puntajeTotal = 0;
 	void update();
 	void draw();
 	bool initSystems();
 	std::unique_ptr<ScreenList> 
 					_screenList = nullptr;
 	bool _isRunning = false;
+	int puntajeSuperTotal;
 	Window _window;
 	
 	IGameScreen* _currentScreen = nullptr;
