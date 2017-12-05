@@ -10,12 +10,14 @@ private:
 	glm::vec2 _position;
 	int _textureID;
 	float _elapsed;
+	float distance = 100;
+	float initDistance;
+	bool facing;
 public:
 	void draw(SpriteBacth& spritebatch);
-	Vullet(std::string texture,glm::vec2 position);
-	void update(float deltaTime);
+	Vullet(std::string texture,glm::vec2 position, bool facinW);
+	bool update(float deltaTime,int pantalla);
 		bool outside();
-		bool collision(int _X,int _Y);
 	~Vullet();
 };
 

@@ -162,8 +162,8 @@ void GamePlayScreen::update() {
 	}
 	for (size_t i = 0; i < _bullets.size(); i++)
 	{
-		_bullets[i]->update(0.1f);
-		if (_bullets[i]->outside()) {
+		
+		if (_bullets[i]->update(0.1f, _window->getScreenWidth())) {
 			_bullets.erase(_bullets.begin() + i);
 		}
 	}
@@ -217,6 +217,13 @@ void GamePlayScreen::update() {
 		
 	}
 
+	if (_game->_inputManager.isKeyDown(SDLK_f) && frecuenciaBala <= 0) {
+		_bullets.push_back(new Vullet("Textures/naves/spaceMissiles_001.png", _ship->getPosition(),_ship->getFacing()));
+		frecuenciaBala = 10;
+	}
+	else {
+		frecuenciaBala--;
+	}
 	
 
 }

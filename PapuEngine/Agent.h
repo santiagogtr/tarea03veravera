@@ -37,6 +37,8 @@ public:
 	bool jumping = false;
 	int contador = 0;
 	int posYJump = 9999;
+	bool facing = true;
+	bool getFacing();
 	bool collideWithAgent(Agent* agent);
 };
 

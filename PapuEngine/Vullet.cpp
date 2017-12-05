@@ -1,10 +1,12 @@
 #include "Vullet.h"
 #include "ResourceManager.h"
 
-Vullet::Vullet(std::string texture, glm::vec2 position)
+Vullet::Vullet(std::string texture, glm::vec2 position,bool facinW)
 				:_texture(texture),_position(position)
 {
 	_textureID = ResourceManager::getTexture(_texture).id;
+	initDistance = position.x;
+	facing = facinW;
 }
 
 void Vullet::draw(SpriteBacth& spritebatch) {
@@ -15,9 +17,15 @@ void Vullet::draw(SpriteBacth& spritebatch) {
 	spritebatch.draw(destRect, uvRect, _textureID, 0.0f, color);
 }
 
-void Vullet::update(float deltaTime) {
+bool Vullet::update(float deltaTime, int pantalla) {
 	_elapsed += deltaTime;
-	_position.y += 5;
+	if (_position.x >= pantalla || _position.x <=0)
+		return true;
+	if(facing)
+	_position.x += 8;
+	else
+		_position.x -= 8;
+	return false;
 }
 
 bool Vullet::outside() {
@@ -27,10 +35,6 @@ bool Vullet::outside() {
 
 
 
-bool Vullet::collision(int _X, int _Y) {
-	if (_X + 40 >= _position.x && _X <= _position.x && _Y >= _position.y && _Y - 20 <= _position.y)return true;
-	return false;
-}
 
 Vullet::~Vullet()
 {

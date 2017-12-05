@@ -28,6 +28,7 @@ private:
 	SpriteFont* _spriteFont;
 	Camera2D _hudCamera;
 	SpriteBacth _hudBatch;
+	int frecuenciaBala = 0;
 	float _elapsed;
 	int _score;
 	int _bullet;

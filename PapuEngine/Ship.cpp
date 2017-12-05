@@ -19,15 +19,17 @@ Ship::Ship(float agent_width, float agent_height, glm::vec2 position,
 void Ship::update(float deltaTime) {
 	if (_inputManager->isKeyDown(SDLK_a)) {
 		_position.x -= 5.0f;
+		facing = false;
 	}
 	if (_inputManager->isKeyDown(SDLK_d)) {
 		_position.x += 3.0f;
+		facing = true;
 	}
 	if (_inputManager->isKeyDown(SDLK_w)) {
 		jumping = true;
 	}
 	if (_inputManager->isKeyDown(SDLK_s)) {
-		_position.y -= 4.0f;
+
 	}
 	jump();
 }

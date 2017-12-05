@@ -47,6 +47,10 @@ bool Agent::collideWithLevel(const std::vector<std::string>& levelData) {
 	return true;
 }
 
+bool Agent::getFacing() {
+	return facing;
+}
+
 bool Agent::collideWithAgent(Agent* agent) {
 
 	const float MIN_DISTANCE = _agent_radius * 2.0f;
