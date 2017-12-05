@@ -30,8 +30,13 @@ public:
 	glm::vec2 getPosition()const { return _position; };
 	virtual void update(float deltaTime) = 0;
 	void draw(SpriteBacth& spritebatch);
+	void gravity();
 	bool collideWithLevel(const std::vector<std::string>& levelData);
 	virtual ~Agent();
+	void jump();
+	bool jumping = false;
+	int contador = 0;
+	int posYJump = 9999;
 	bool collideWithAgent(Agent* agent);
 };
 

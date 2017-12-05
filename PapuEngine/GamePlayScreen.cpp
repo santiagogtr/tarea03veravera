@@ -151,8 +151,10 @@ void GamePlayScreen::update() {
 			}
 		}
 	}
+	_ship->gravity();
 	for (size_t i = 0; i < _enemies.size(); i++)
 	{
+		_enemies[i]->gravity();
 		_enemies[i]->update(0.1f);
 		if (_enemies[i]->outside()) {
 			_enemies.erase(_enemies.begin() + i);

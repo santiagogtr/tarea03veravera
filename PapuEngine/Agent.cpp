@@ -21,6 +21,15 @@ void Agent::draw(SpriteBacth& spritebatch) {
 
 }
 
+
+void Agent::gravity() {
+	/*if (collideWithLevel(levelData)) {
+	}*/
+	if (_position.y >= 5) {
+		_position.y-=2;
+	}
+}
+
 bool Agent::collideWithLevel(const std::vector<std::string>& levelData) {
 	std::vector<glm::vec2> collideTilePosition;
 	checkTilePosition(levelData, collideTilePosition, _position.x, _position.y);
@@ -62,7 +71,22 @@ bool Agent::collideWithAgent(Agent* agent) {
 
 	return false;
 }
+void Agent::jump() {
 
+
+	if (jumping && contador >= 0) {
+		_position.y += 1 + (contador / 3);
+		contador--;
+	}
+		if (_position.y <= posYJump) {
+			posYJump = _position.y;
+			contador = 20;
+			jumping = false;
+		}
+
+	
+
+}
 void Agent::checkTilePosition(const std::vector<std::string>& levelData, std::vector<glm::vec2>& collideTilePosition, float x, float y) {
 	/*glm::vec2 cornesPos = glm::vec2(floor(x / (float)TILE_WIDTH),
 		floor(y / (float)TILE_WIDTH));
