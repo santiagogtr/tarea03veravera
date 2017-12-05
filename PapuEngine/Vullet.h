@@ -7,7 +7,6 @@ class Vullet
 {
 private:
 	std::string _texture;
-	glm::vec2 _position;
 	int _textureID;
 	float _elapsed;
 	float distance = 100;
@@ -15,6 +14,7 @@ private:
 	bool facing;
 public:
 	void draw(SpriteBacth& spritebatch);
+	glm::vec2 _position;
 	Vullet(std::string texture,glm::vec2 position, bool facinW);
 	bool update(float deltaTime,int pantalla);
 		bool outside();

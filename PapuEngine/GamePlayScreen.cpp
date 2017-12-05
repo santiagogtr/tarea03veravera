@@ -125,9 +125,14 @@ void GamePlayScreen::update() {
 	if (_elapsed >= 6.0f) {
 		tiempo++;
 		_elapsed = 0;
-		if (tiempo % 2 == 0) {
+		if (tiempo % 4 == 0) {
 			
-			std::mt19937 randomEngine;
+			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+				300, 30),
+				"Textures/naves/amarillo.png", 1));
+
+
+			/*std::mt19937 randomEngine;
 			randomEngine.seed(time(nullptr));
 			std::uniform_real_distribution<float>
 				randX(0, _window->getScreenWidth());
@@ -148,14 +153,14 @@ void GamePlayScreen::update() {
 						randX(randomEngine), 800),
 						"Textures/naves/verde.png", 3));
 				}
-			}
+			}*/
 		}
 	}
 	_ship->gravity();
 	for (size_t i = 0; i < _enemies.size(); i++)
 	{
-		_enemies[i]->gravity();
-		_enemies[i]->update(0.1f);
+		//_enemies[i]->gravity();
+		//_enemies[i]->update(0.1f);
 		if (_enemies[i]->outside()) {
 			_enemies.erase(_enemies.begin() + i);
 		}
@@ -166,9 +171,23 @@ void GamePlayScreen::update() {
 		if (_bullets[i]->update(0.1f, _window->getScreenWidth())) {
 			_bullets.erase(_bullets.begin() + i);
 		}
+
+		for (int e = 0; e < _enemies.size(); e++) {
+			EnemyShip* prov = new EnemyShip(55, 37, glm::vec2(
+				_bullets[i]->_position.x,_bullets[i]->_position.y ),
+				"Textures/naves/amarillo.png", 1);
+			if (_enemies[e]->collideWithAgent(prov)) {
+				_bullets.erase(_bullets.begin() + i);
+				_enemies.erase(_enemies.begin() + e);
+				puntaje += 10;
+				puntajeTotal += 10;
+			}
+
+		}
+
 	}
 
-	for (size_t e = 0; e < _enemies.size(); e++)
+	/*for (size_t e = 0; e < _enemies.size(); e++)
 	{
 
 		
@@ -215,7 +234,7 @@ void GamePlayScreen::update() {
 				}
 			}
 		
-	}
+	}*/
 
 	if (_game->_inputManager.isKeyDown(SDLK_f) && frecuenciaBala <= 0) {
 		_bullets.push_back(new Vullet("Textures/naves/spaceMissiles_001.png", _ship->getPosition(),_ship->getFacing()));
