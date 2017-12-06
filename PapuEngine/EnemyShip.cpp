@@ -20,7 +20,7 @@ bool EnemyShip::update(float deltaTime, Ship* _ship) {
 	switch (color) {
 	case 1:
 		if (frecuenciaBala <= 0) {
-			frecuenciaBala = 50;
+			frecuenciaBala = 80;
 			return true;
 		}
 		else {

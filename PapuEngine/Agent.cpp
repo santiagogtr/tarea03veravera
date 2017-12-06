@@ -82,11 +82,12 @@ void Agent::jump() {
 		contador--;
 	}
 
-		if (_position.y <= posYJump+6) {
-			posYJump = _position.y;
-			contador = 30;
-			jumping = false;
-		}
+	if (_position.y <= posYJump + 6) {
+		posYJump = _position.y;
+		contador = 30;
+		jumping = false;
+	}
+}
 
 void Agent::crouch() {
 

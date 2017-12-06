@@ -31,9 +31,13 @@ void Ship::update(float deltaTime) {
 		jumping = true;
 	}
 	if (_inputManager->isKeyDown(SDLK_s)) {
-
+		crouching = true;
+	}
+	else {
+		crouching = false;
 	}
 	jump();
+	changeTextures();
 }
 
 

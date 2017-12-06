@@ -111,7 +111,10 @@ void GamePlayScreen::draw() {
 	{
 		_bullets[i]->draw(_spriteBatch);
 	}
-
+	for (size_t i = 0; i < _enemyBullets.size(); i++)
+	{
+		_enemyBullets[i]->draw(_spriteBatch);
+	}
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();
 
@@ -304,7 +307,16 @@ void GamePlayScreen::update() {
 		frecuenciaBala--;
 	}
 	
-
+	if (_game->_inputManager.isKeyDown(SDLK_d)) {
+		_camera2d.setPosition(glm::vec2(
+			_camera2d.getPosition().x + 5, _camera2d.getPosition().y));
+		
+	}
+	if (_game->_inputManager.isKeyDown(SDLK_a)) {
+		_camera2d.setPosition(glm::vec2(
+			_camera2d.getPosition().x - 5, _camera2d.getPosition().y));
+		
+	}
 	if (vida == 0) {
 		puntajeSuperTotal = puntajeTotal;
 		_currentState = ScreenState::CHANGE_NEXT;
