@@ -155,9 +155,22 @@ void GamePlayScreen::update() {
 			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
 				randomColor, 220),
 				"Textures/naves/amarillo.png", 1));
+			 randomColor = randX(randomEngine);
+			if (randomColor > _ship->getPosition().x - 50 || randomColor <= _ship->getPosition().x)
+				randomColor - 50;
+			if (randomColor < _ship->getPosition().x + 50 || randomColor > _ship->getPosition().x)
+				randomColor + 50;
 			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
 				randomColor, 450),
 				"Textures/naves/rojo.png", 2));
+			randomColor = randX(randomEngine);
+			if (randomColor > _ship->getPosition().x - 50 || randomColor <= _ship->getPosition().x)
+				randomColor - 50;
+			if (randomColor < _ship->getPosition().x + 50 || randomColor > _ship->getPosition().x)
+				randomColor + 50;
+			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+				randomColor, 220),
+				"Textures/naves/amarillo.png", 1));
 
 
 			/*
