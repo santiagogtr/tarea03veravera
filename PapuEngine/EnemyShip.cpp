@@ -11,6 +11,12 @@ EnemyShip::EnemyShip(float agent_width, float agent_height, glm::vec2 position, 
 
 bool EnemyShip::update(float deltaTime, Ship* _ship) {
 	_elapsed += deltaTime;
+	if (_ship->getPosition().x > _position.x) {
+		facing = true;
+	}
+	else {
+		facing = false;
+	}
 	if ( frecuenciaBala <= 0) {
 		frecuenciaBala = 50;
 		return true;

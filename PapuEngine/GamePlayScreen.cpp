@@ -62,7 +62,7 @@ void GamePlayScreen::onEntry() {
 
 	_spriteFont = new SpriteFont("Fonts/arial.ttf",64);
 
-	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+	/*_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
 		300, 20),
 		"Textures/naves/amarillo.png", 1));
 	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
@@ -73,7 +73,7 @@ void GamePlayScreen::onEntry() {
 		"Textures/naves/amarillo.png", 1));
 	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
 		0, 20),
-		"Textures/naves/amarillo.png", 1));
+		"Textures/naves/amarillo.png", 1));*/
 }
 
 void GamePlayScreen::initWorld() {
@@ -100,7 +100,7 @@ void GamePlayScreen::draw() {
 	_spriteBatch.begin();
 
 	_ship->draw(_spriteBatch);
-	_background->draw(_spriteBatch);
+	_background->draw(_spriteBatch,_ship->getPosition().x/800);
 
 	for (size_t i = 0; i < _enemies.size(); i++)
 	{
@@ -144,18 +144,22 @@ void GamePlayScreen::update() {
 	if (_elapsed >= 6.0f) {
 		tiempo++;
 		_elapsed = 0;
-		if (tiempo % 4 == 0) {
-			
-			/*_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
-				300, 30),
-				"Textures/naves/amarillo.png", 1));*/
-
-
-			/*std::mt19937 randomEngine;
+		if (tiempo % 2 == 0) {
+			std::mt19937 randomEngine;
 			randomEngine.seed(time(nullptr));
 			std::uniform_real_distribution<float>
-				randX(0, _window->getScreenWidth());
+				randX(-5000,5000);
 			int randomColor = randX(randomEngine);
+			if (randomColor > _ship->getPosition().x - 50 || randomColor <= _ship->getPosition().x)
+				randomColor - 50;
+			if(randomColor < _ship->getPosition().x + 50 || randomColor > _ship->getPosition().x)
+				randomColor + 50;
+			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+				randomColor, 20),
+				"Textures/naves/amarillo.png", 1));
+
+
+			/*
 			if (randomColor % 3) {
 				_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
 					randX(randomEngine), 800),
