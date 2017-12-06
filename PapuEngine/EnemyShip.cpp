@@ -17,14 +17,31 @@ bool EnemyShip::update(float deltaTime, Ship* _ship) {
 	else {
 		facing = false;
 	}
-	if ( frecuenciaBala <= 0) {
-		frecuenciaBala = 50;
-		return true;
+	switch (color) {
+	case 1:
+		if (frecuenciaBala <= 0) {
+			frecuenciaBala = 50;
+			return true;
+		}
+		else {
+			frecuenciaBala--;
+		}
+		return false;
+		break;
+	case 2:
+		if (facing) {
+			_position.x += 2;
+		}
+		else {
+			_position.x -= 2;
+		}
+
+		if (_position.x >= _ship->getPosition().x-200 && _position.x <= _ship->getPosition().x+200) {
+			_position.y--;
+		}
+
+		return false;
 	}
-	else {
-		frecuenciaBala--;
-	}
-	return false;
 }
 
 bool EnemyShip::outside() {
