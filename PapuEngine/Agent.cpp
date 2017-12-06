@@ -25,7 +25,7 @@ void Agent::draw(SpriteBacth& spritebatch) {
 void Agent::gravity() {
 	/*if (collideWithLevel(levelData)) {
 	}*/
-	if (_position.y >= 5.5) {
+	if (_position.y >= 210) {
 		_position.y-=5.5;
 	}
 }

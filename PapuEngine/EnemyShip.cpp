@@ -36,7 +36,7 @@ bool EnemyShip::update(float deltaTime, Ship* _ship) {
 			_position.x -= 2;
 		}
 
-		if (_position.x >= _ship->getPosition().x-200 && _position.x <= _ship->getPosition().x+200) {
+		if (_position.x >= _ship->getPosition().x-200 && _position.y > _ship->getPosition().y && _position.x <= _ship->getPosition().x+200) {
 			_position.y--;
 		}
 

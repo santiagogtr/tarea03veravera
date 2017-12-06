@@ -52,7 +52,7 @@ void GamePlayScreen::onEntry() {
 	
 	_background = new Background("Textures/naves/game.png");
 	_ship = new Ship(53, 80
-		, glm::vec2(_window->getScreenWidth() / 2.0f, 100), "Textures/naves/X.png",&_game->_inputManager);
+		, glm::vec2(_window->getScreenWidth() / 2.0f, 300), "Textures/naves/X.png",&_game->_inputManager);
 
 	_hudCamera.init(_window->getScreenWidth(),
 		_window->getScreenHeight());
@@ -142,21 +142,21 @@ void GamePlayScreen::update() {
 	if (_elapsed >= 6.0f) {
 		tiempo++;
 		_elapsed = 0;
-		if (tiempo % 2 == 0) {
+		if (tiempo % 1 == 0) {
 			std::mt19937 randomEngine;
 			randomEngine.seed(time(nullptr));
 			std::uniform_real_distribution<float>
-				randX(-5000,5000);
+				randX(-50000,50000);
 			int randomColor = randX(randomEngine);
 			if (randomColor > _ship->getPosition().x - 50 || randomColor <= _ship->getPosition().x)
 				randomColor - 50;
 			if(randomColor < _ship->getPosition().x + 50 || randomColor > _ship->getPosition().x)
 				randomColor + 50;
 			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
-				randomColor, 20),
+				randomColor, 220),
 				"Textures/naves/amarillo.png", 1));
 			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
-				randomColor, 400),
+				randomColor, 450),
 				"Textures/naves/rojo.png", 2));
 
 
