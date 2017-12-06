@@ -12,7 +12,7 @@ public:
 	EnemyShip(float agent_width, float agent_height, glm::vec2 position,std::string texture, int color);
 	bool update(float deltaTime, Ship* _ship);
 	bool outside();
-	int frecuenciaBala = 20;
+	int frecuenciaBala = 80;
 	int getColor();
 	~EnemyShip();
 };
