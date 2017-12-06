@@ -270,7 +270,16 @@ void GamePlayScreen::update() {
 	else {
 		frecuenciaBala--;
 	}
-	
+
+
+	if (_game->_inputManager.isKeyDown(SDLK_d)) {
+		_camera2d.setPosition(glm::vec2(
+			_camera2d.getPosition().x + 5, _camera2d.getPosition().y));
+	}
+	if (_game->_inputManager.isKeyDown(SDLK_a)) {
+		_camera2d.setPosition(glm::vec2(
+			_camera2d.getPosition().x - 5, _camera2d.getPosition().y));
+	}
 
 }
 
