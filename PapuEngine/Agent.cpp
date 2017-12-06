@@ -25,8 +25,8 @@ void Agent::draw(SpriteBacth& spritebatch) {
 void Agent::gravity() {
 	/*if (collideWithLevel(levelData)) {
 	}*/
-	if (_position.y >= 7) {
-		_position.y-=4;
+	if (_position.y >= 5) {
+		_position.y-=2;
 	}
 }
 
@@ -77,20 +77,22 @@ bool Agent::collideWithAgent(Agent* agent) {
 }
 void Agent::jump() {
 
-
 	if (jumping && contador >= 0) {
 		_position.y += 1 + (contador / 3);
 		contador--;
 	}
-		if (_position.y <= posYJump) {
-			posYJump = _position.y;
-			contador = 30;
-			jumping = false;
-		}
+	if (_position.y <= posYJump) {
+		posYJump = _position.y;
+		contador = 20;
+		jumping = false;
+	}
+}
 
-	
+
+void Agent::crouch() {
 
 }
+
 void Agent::checkTilePosition(const std::vector<std::string>& levelData, std::vector<glm::vec2>& collideTilePosition, float x, float y) {
 	/*glm::vec2 cornesPos = glm::vec2(floor(x / (float)TILE_WIDTH),
 		floor(y / (float)TILE_WIDTH));
@@ -150,4 +152,46 @@ void Agent::changeDirection(int key) {
 		_agent_width = _agent_width*-1;
 		printf("derecha2");
 	}
+}
+
+void Agent::changeTextures() {
+	if (jumping) {
+
+		if (contador > 12) _texturePath = "Textures/naves/X-Jumping.png";
+		if (contador < 12 && contador > 5) _texturePath = "Textures/naves/X-Jumping-Midair.png";
+		if (contador < 5 && contador > 0) _texturePath = "Textures/naves/X-Jumping-Landing.png";
+		if (contador < 0) _texturePath = "Textures/naves/X-Jumping-About-to-Land.png";
+
+		_agent_height = 110;
+		if (facing) {
+			if(contador < 0) _agent_width = 70;
+			else _agent_width = 80;
+		}
+		else {
+			if (contador < 0) _agent_width = -70;
+			else _agent_width = -80;
+		}
+	}
+	else if (crouching) {
+		_texturePath = "Textures/naves/X-Crouching.png";
+		_agent_height = 70;
+		if (facing) {
+			_agent_width = 90;
+		}
+		else {
+			_agent_width = -90;
+		}
+	}
+	else if(!jumping && !crouching){
+		_texturePath = "Textures/naves/X.png";
+		_agent_height = 90;
+		if (facing) {
+			_agent_width = 60;
+		}
+		else {
+			_agent_width = -60;
+		}
+	}
+
+	
 }

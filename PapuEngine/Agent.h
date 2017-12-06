@@ -35,11 +35,14 @@ public:
 	virtual ~Agent();
 	void jump();
 	bool jumping = false;
+	void crouch();
+	bool crouching = false;
 	int contador = 0;
 	int posYJump = 9999;
 	bool facing = true;
 	bool getFacing();
 	bool collideWithAgent(Agent* agent);
 	void changeDirection(int key);
+	void changeTextures();
 };
 
