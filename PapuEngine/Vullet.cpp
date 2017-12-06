@@ -23,9 +23,9 @@ void Vullet::draw(SpriteBacth& spritebatch) {
 	}
 }
 
-bool Vullet::update(float deltaTime, int pantalla) {
+bool Vullet::update(float deltaTime, int pantallaD, int pantallaI) {
 	_elapsed += deltaTime;
-	if (_position.x >= pantalla || _position.x <=0)
+	if (_position.x >= pantallaD || _position.x <= pantallaI)
 		return true;
 	if(facing)
 	_position.x += 8;

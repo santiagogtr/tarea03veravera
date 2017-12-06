@@ -16,7 +16,7 @@ public:
 	void draw(SpriteBacth& spritebatch);
 	glm::vec2 _position;
 	Vullet(std::string texture,glm::vec2 position, bool facinW);
-	bool update(float deltaTime,int pantalla);
+	bool update(float deltaTime,int pantallaD, int pantallaI);
 		bool outside();
 	~Vullet();
 };

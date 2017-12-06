@@ -60,6 +60,19 @@ void GamePlayScreen::onEntry() {
 				_window->getScreenHeight() / 2.0f));
 
 	_spriteFont = new SpriteFont("Fonts/arial.ttf",64);
+
+	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+		300, 20),
+		"Textures/naves/amarillo.png", 1));
+	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+		1000, 20),
+		"Textures/naves/amarillo.png", 1));
+	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+		600, 20),
+		"Textures/naves/amarillo.png", 1));
+	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+		0, 20),
+		"Textures/naves/amarillo.png", 1));
 }
 
 void GamePlayScreen::initWorld() {
@@ -127,9 +140,9 @@ void GamePlayScreen::update() {
 		_elapsed = 0;
 		if (tiempo % 4 == 0) {
 			
-			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+			/*_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
 				300, 30),
-				"Textures/naves/amarillo.png", 1));
+				"Textures/naves/amarillo.png", 1));*/
 
 
 			/*std::mt19937 randomEngine;
@@ -163,26 +176,49 @@ void GamePlayScreen::update() {
 		//_enemies[i]->update(0.1f);
 		if (_enemies[i]->outside()) {
 			_enemies.erase(_enemies.begin() + i);
+			break;
 		}
+	}
+
+	for (size_t i = 0; i < _enemyBullets.size(); i++)
+	{
+
+		if (_enemyBullets[i]->update(0.1f, _window->getScreenWidth()/2 + _ship->getPosition().x, _ship->getPosition().x - _window->getScreenWidth() / 2)) {
+			_enemyBullets.erase(_enemyBullets.begin() + i);
+		}
+		else {
+			EnemyShip* prov = new EnemyShip(55, 37, glm::vec2(
+				_enemyBullets[i]->_position.x, _enemyBullets[i]->_position.y),
+				"Textures/naves/amarillo.png", 1);
+			if (_ship->collideWithAgent(prov)) {
+				_enemyBullets.erase(_enemyBullets.begin() + i);
+				puntajeSuperTotal = puntajeTotal;
+				_currentState = ScreenState::CHANGE_NEXT;
+				break;
+			}
+		}
+
 	}
 	for (size_t i = 0; i < _bullets.size(); i++)
 	{
-		
-		if (_bullets[i]->update(0.1f, _window->getScreenWidth())) {
+
+		if (_bullets[i]->update(0.1f, _window->getScreenWidth() / 2 + _ship->getPosition().x,  _ship->getPosition().x - _window->getScreenWidth() / 2 )) {
 			_bullets.erase(_bullets.begin() + i);
 		}
+		else {
 
-		for (int e = 0; e < _enemies.size(); e++) {
-			EnemyShip* prov = new EnemyShip(55, 37, glm::vec2(
-				_bullets[i]->_position.x,_bullets[i]->_position.y ),
-				"Textures/naves/amarillo.png", 1);
-			if (_enemies[e]->collideWithAgent(prov)) {
-				_bullets.erase(_bullets.begin() + i);
-				_enemies.erase(_enemies.begin() + e);
-				puntaje += 10;
-				puntajeTotal += 10;
+			for (int e = 0; e < _enemies.size(); e++) {
+				EnemyShip* prov = new EnemyShip(55, 37, glm::vec2(
+					_bullets[i]->_position.x, _bullets[i]->_position.y),
+					"Textures/naves/amarillo.png", 1);
+				if (_enemies[e]->collideWithAgent(prov)) {
+					_bullets.erase(_bullets.begin() + i);
+					_enemies.erase(_enemies.begin() + e);
+					puntaje += 10;
+					puntajeTotal += 10;
+					break;
+				}
 			}
-
 		}
 
 	}
