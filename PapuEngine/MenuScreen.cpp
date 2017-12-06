@@ -85,10 +85,13 @@ void MenuScreen::draw() {
 	_spriteBacth.begin();
 	_background->draw(_spriteBacth,0);
 	_button->draw(_spriteBacth);
-	sprintf_s(buffer, " Examen Final Bica Corazon ");
-	_spriteFont->draw(_spriteBacth, buffer, glm::vec2(0, 36),
+	sprintf_s(buffer, " Megaman 12 ");
+	_spriteFont->draw(_spriteBacth, buffer, glm::vec2(350, 250),
 		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
 	sprintf_s(buffer, " Santiago Gomez de la torre Rodriguez ");
+	_spriteFont->draw(_spriteBacth, buffer, glm::vec2(0, 36),
+		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
+	sprintf_s(buffer, " Rances Renato Ramos Ramirez");
 	_spriteFont->draw(_spriteBacth, buffer, glm::vec2(0, 0),
 		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
 	_spriteBacth.renderBatch();
