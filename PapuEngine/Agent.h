@@ -44,5 +44,6 @@ public:
 	bool collideWithAgent(Agent* agent);
 	void changeDirection(int key);
 	void changeTextures();
+	void changeEnemyDirection();
 };
 

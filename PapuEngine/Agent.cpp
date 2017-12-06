@@ -82,7 +82,7 @@ void Agent::jump() {
 		contador--;
 	}
 
-	if (_position.y <= posYJump + 6) {
+	if (_position.y <= posYJump + 8) {
 		posYJump = _position.y;
 		contador = 30;
 		jumping = false;
@@ -151,6 +151,15 @@ void Agent::changeDirection(int key) {
 	else if (facing && _agent_width < 0 && key == 100) {
 		_agent_width = _agent_width*-1;
 		printf("derecha2");
+	}
+}
+
+void Agent::changeEnemyDirection() {
+	if (!facing && _agent_width < 0) {
+		_agent_width = _agent_width*-1;
+	}
+	else if (facing && _agent_width > 0) {
+		_agent_width = _agent_width*-1;
 	}
 }
 

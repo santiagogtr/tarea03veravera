@@ -13,9 +13,13 @@ bool EnemyShip::update(float deltaTime, Ship* _ship) {
 	_elapsed += deltaTime;
 	if (_ship->getPosition().x > _position.x) {
 		facing = true;
+		changeEnemyDirection();
+		//changeDirection(97);
 	}
 	else {
 		facing = false;
+		changeEnemyDirection();
+		//changeDirection(100);
 	}
 	switch (color) {
 	case 1:
