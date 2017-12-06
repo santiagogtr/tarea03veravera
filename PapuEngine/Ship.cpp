@@ -20,10 +20,12 @@ void Ship::update(float deltaTime) {
 	if (_inputManager->isKeyDown(SDLK_a)) {
 		_position.x -= 5.0f;
 		facing = false;
+		changeDirection(97);
 	}
 	if (_inputManager->isKeyDown(SDLK_d)) {
 		_position.x += 3.0f;
 		facing = true;
+		changeDirection(100);
 	}
 	if (_inputManager->isKeyDown(SDLK_w)) {
 		jumping = true;

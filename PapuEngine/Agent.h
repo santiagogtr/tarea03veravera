@@ -40,5 +40,6 @@ public:
 	bool facing = true;
 	bool getFacing();
 	bool collideWithAgent(Agent* agent);
+	void changeDirection(int key);
 };
 

@@ -136,3 +136,18 @@ void Agent::collideWithTile(glm::vec2 tilePos) {
 Agent::~Agent()
 {
 }
+
+void Agent::changeDirection(int key) {
+	/*if (facing && _agent_width > 0 && key == 100) {
+		_agent_width = _agent_width;
+		printf("derecha");
+	}
+	else*/ if (!facing && _agent_width > 0 && key == 97) {
+		_agent_width = _agent_width*-1;
+		printf("izquierda");
+	}
+	else if (facing && _agent_width < 0 && key == 100) {
+		_agent_width = _agent_width*-1;
+		printf("derecha2");
+	}
+}

@@ -50,8 +50,8 @@ void GamePlayScreen::onEntry() {
 			_window->getScreenHeight() / 2.0f));
 	
 	_background = new Background("Textures/naves/game.png");
-	_ship = new Ship(53, 39
-		, glm::vec2(_window->getScreenWidth() / 2.0f, 100), "Textures/naves/Player.png",&_game->_inputManager);
+	_ship = new Ship(53, 80
+		, glm::vec2(_window->getScreenWidth() / 2.0f, 100), "Textures/naves/X.png",&_game->_inputManager);
 
 	_hudCamera.init(_window->getScreenWidth(),
 		_window->getScreenHeight());
@@ -237,7 +237,7 @@ void GamePlayScreen::update() {
 	}*/
 
 	if (_game->_inputManager.isKeyDown(SDLK_f) && frecuenciaBala <= 0) {
-		_bullets.push_back(new Vullet("Textures/naves/spaceMissiles_001.png", _ship->getPosition(),_ship->getFacing()));
+		_bullets.push_back(new Vullet("Textures/naves/bullet.png", _ship->getPosition(),_ship->getFacing()));
 		frecuenciaBala = 10;
 	}
 	else {
