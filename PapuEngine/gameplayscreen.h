@@ -35,6 +35,7 @@ private:
 	int _bullet;
 	void drawHUD();
 	int tiempo;
+	int vida;
 	int puntaje;
 	int puntajeTotal;
 	vector<EnemyShip*> _enemies;

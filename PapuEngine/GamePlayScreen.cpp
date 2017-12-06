@@ -43,6 +43,7 @@ void GamePlayScreen::onEntry() {
 	tiempo = 0;
 	puntaje = 0;
 	puntajeTotal = 0;
+	vida = 10;
 	_camera2d.init(_window->getScreenWidth(),
 		_window->getScreenHeight());
 	_camera2d.setPosition(
@@ -197,9 +198,12 @@ void GamePlayScreen::update() {
 				_enemyBullets[i]->_position.x, _enemyBullets[i]->_position.y),
 				"Textures/naves/amarillo.png", 1);
 			if (_ship->collideWithAgent(prov)) {
+				vida--;
 				_enemyBullets.erase(_enemyBullets.begin() + i);
-				puntajeSuperTotal = puntajeTotal;
-				_currentState = ScreenState::CHANGE_NEXT;
+				if (vida == 0) {
+					puntajeSuperTotal = puntajeTotal;
+					_currentState = ScreenState::CHANGE_NEXT;
+				}
 				break;
 			}
 		}
@@ -309,7 +313,7 @@ void  GamePlayScreen::drawHUD() {
 	char buffer[256];
 
 	_hudBatch.begin();
-	sprintf_s(buffer, " TIEMPO %d", tiempo);
+	sprintf_s(buffer, " VIDA %d", vida);
 	_spriteFont->draw(_hudBatch, buffer, glm::vec2(0, 450),
 		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
 	sprintf_s(buffer, " PUNTAJE %d", puntaje);
