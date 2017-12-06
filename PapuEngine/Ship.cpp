@@ -23,11 +23,11 @@ void Ship::update(float deltaTime) {
 		changeDirection(97);
 	}
 	if (_inputManager->isKeyDown(SDLK_d)) {
-		_position.x += 3.0f;
+		_position.x += 5.0f;
 		facing = true;
 		changeDirection(100);
 	}
-	if (_inputManager->isKeyDown(SDLK_w)) {
+	if (_inputManager->isKeyDown(SDLK_SPACE)) {
 		jumping = true;
 	}
 	if (_inputManager->isKeyDown(SDLK_s)) {

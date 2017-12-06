@@ -6,11 +6,19 @@ EnemyShip::EnemyShip(float agent_width, float agent_height, glm::vec2 position, 
 	:Ship(agent_width,agent_height,position,texture),_elapsed(0)
 {
 	this->color = color;
+	facing = false;
 }
 
-void EnemyShip::update(float deltaTime) {
+bool EnemyShip::update(float deltaTime, Ship* _ship) {
 	_elapsed += deltaTime;
-	_position.y -= 5;
+	if ( frecuenciaBala <= 0) {
+		frecuenciaBala = 50;
+		return true;
+	}
+	else {
+		frecuenciaBala--;
+	}
+	return false;
 }
 
 bool EnemyShip::outside() {
@@ -19,13 +27,6 @@ bool EnemyShip::outside() {
 }
 
 
-bool EnemyShip::colision(int comprobarX, int comprobsrY) {
-	if (comprobarX + 40 >= _position.x && comprobarX <=_position.x && comprobsrY >= _position.y && comprobsrY-20 <= _position.y)
-		return true;
-	else
-		return false;
-
-}
 
 int EnemyShip::getColor() {
 	return color;

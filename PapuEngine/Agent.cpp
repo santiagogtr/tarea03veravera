@@ -25,8 +25,8 @@ void Agent::draw(SpriteBacth& spritebatch) {
 void Agent::gravity() {
 	/*if (collideWithLevel(levelData)) {
 	}*/
-	if (_position.y >= 5) {
-		_position.y-=2;
+	if (_position.y >= 7) {
+		_position.y-=4;
 	}
 }
 
@@ -84,7 +84,7 @@ void Agent::jump() {
 	}
 		if (_position.y <= posYJump) {
 			posYJump = _position.y;
-			contador = 20;
+			contador = 30;
 			jumping = false;
 		}
 
