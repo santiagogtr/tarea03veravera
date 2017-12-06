@@ -9,7 +9,7 @@ private:
 	std::string _texture;
 	int _textureID;
 public:
-	void draw(SpriteBacth& spritebatch);
+	void draw(SpriteBacth& spritebatch,int posicion);
 	Background(std::string texture);
 	~Background();
 };

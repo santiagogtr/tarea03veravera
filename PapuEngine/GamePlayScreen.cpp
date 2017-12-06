@@ -43,6 +43,7 @@ void GamePlayScreen::onEntry() {
 	tiempo = 0;
 	puntaje = 0;
 	puntajeTotal = 0;
+	vida = 10;
 	_camera2d.init(_window->getScreenWidth(),
 		_window->getScreenHeight());
 	_camera2d.setPosition(
@@ -61,7 +62,7 @@ void GamePlayScreen::onEntry() {
 
 	_spriteFont = new SpriteFont("Fonts/arial.ttf",64);
 
-	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+	/*_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
 		300, 20),
 		"Textures/naves/amarillo.png", 1));
 	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
@@ -72,7 +73,7 @@ void GamePlayScreen::onEntry() {
 		"Textures/naves/amarillo.png", 1));
 	_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
 		0, 20),
-		"Textures/naves/amarillo.png", 1));
+		"Textures/naves/amarillo.png", 1));*/
 }
 
 void GamePlayScreen::initWorld() {
@@ -99,7 +100,7 @@ void GamePlayScreen::draw() {
 	_spriteBatch.begin();
 
 	_ship->draw(_spriteBatch);
-	_background->draw(_spriteBatch);
+	_background->draw(_spriteBatch,_ship->getPosition().x/800);
 
 	for (size_t i = 0; i < _enemies.size(); i++)
 	{
@@ -138,18 +139,25 @@ void GamePlayScreen::update() {
 	if (_elapsed >= 6.0f) {
 		tiempo++;
 		_elapsed = 0;
-		if (tiempo % 4 == 0) {
-			
-			/*_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
-				300, 30),
-				"Textures/naves/amarillo.png", 1));*/
-
-
-			/*std::mt19937 randomEngine;
+		if (tiempo % 2 == 0) {
+			std::mt19937 randomEngine;
 			randomEngine.seed(time(nullptr));
 			std::uniform_real_distribution<float>
-				randX(0, _window->getScreenWidth());
+				randX(-5000,5000);
 			int randomColor = randX(randomEngine);
+			if (randomColor > _ship->getPosition().x - 50 || randomColor <= _ship->getPosition().x)
+				randomColor - 50;
+			if(randomColor < _ship->getPosition().x + 50 || randomColor > _ship->getPosition().x)
+				randomColor + 50;
+			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+				randomColor, 20),
+				"Textures/naves/amarillo.png", 1));
+			_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
+				randomColor, 400),
+				"Textures/naves/rojo.png", 2));
+
+
+			/*
 			if (randomColor % 3) {
 				_enemies.push_back(new EnemyShip(55, 37, glm::vec2(
 					randX(randomEngine), 800),
@@ -172,11 +180,28 @@ void GamePlayScreen::update() {
 	_ship->gravity();
 	for (size_t i = 0; i < _enemies.size(); i++)
 	{
+		/*
 		//_enemies[i]->gravity();
 		//_enemies[i]->update(0.1f);
 		if (_enemies[i]->outside()) {
 			_enemies.erase(_enemies.begin() + i);
 			break;
+			*/
+
+		if (_ship->getPosition().x - _window->getScreenWidth() / 2 < _enemies[i]->getPosition().x && _window->getScreenWidth() / 2 + _ship->getPosition().x >_enemies[i]->getPosition().x) {
+			//_enemies[i]->gravity();
+			if (_enemies[i]->update(0.1f, _ship)) {
+				_enemyBullets.push_back(new Vullet("Textures/naves/spaceMissiles_001.png", _enemies[i]->getPosition(), _enemies[i]->getFacing()));
+			}
+			/*if (_enemies[i]->outside()) {
+				_enemies.erase(_enemies.begin() + i);
+				break;
+			}*/
+			if (_enemies[i]->collideWithAgent(_ship)) {
+				_enemies.erase(_enemies.begin() + i);
+				vida--;
+				break;
+			}
 		}
 	}
 
@@ -191,9 +216,8 @@ void GamePlayScreen::update() {
 				_enemyBullets[i]->_position.x, _enemyBullets[i]->_position.y),
 				"Textures/naves/amarillo.png", 1);
 			if (_ship->collideWithAgent(prov)) {
+				vida--;
 				_enemyBullets.erase(_enemyBullets.begin() + i);
-				puntajeSuperTotal = puntajeTotal;
-				_currentState = ScreenState::CHANGE_NEXT;
 				break;
 			}
 		}
@@ -281,6 +305,11 @@ void GamePlayScreen::update() {
 	}
 	
 
+	if (vida == 0) {
+		puntajeSuperTotal = puntajeTotal;
+		_currentState = ScreenState::CHANGE_NEXT;
+	}
+
 }
 
 void  GamePlayScreen::drawHUD() {
@@ -293,7 +322,7 @@ void  GamePlayScreen::drawHUD() {
 	char buffer[256];
 
 	_hudBatch.begin();
-	sprintf_s(buffer, " TIEMPO %d", tiempo);
+	sprintf_s(buffer, " VIDA %d", vida);
 	_spriteFont->draw(_hudBatch, buffer, glm::vec2(0, 450),
 		glm::vec2(0.5), 0.0f, ColorRGBA(255, 255, 255, 255));
 	sprintf_s(buffer, " PUNTAJE %d", puntaje);

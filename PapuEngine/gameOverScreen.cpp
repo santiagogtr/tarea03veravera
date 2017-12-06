@@ -83,7 +83,7 @@ void gameOverScreen::draw() {
 
 	char buffer[256];
 	_spriteBacth.begin();
-	_background->draw(_spriteBacth);
+	_background->draw(_spriteBacth,0);
 	_button->draw(_spriteBacth);
 	sprintf_s(buffer, " Puntaje Total : %d ",puntajeSuperTotal);
 	_spriteFont->draw(_spriteBacth, buffer, glm::vec2(0, 0),
