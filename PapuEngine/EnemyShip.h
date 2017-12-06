@@ -1,5 +1,8 @@
 #pragma once
 #include "Ship.h"
+#include "Vullet.h"
+#include <vector>
+
 class EnemyShip : public Ship
 {
 private:
@@ -7,9 +10,9 @@ private:
 	int color;
 public:
 	EnemyShip(float agent_width, float agent_height, glm::vec2 position,std::string texture, int color);
-	void update(float deltaTime);
+	bool update(float deltaTime, Ship* _ship);
 	bool outside();
-	bool colision(int comprobarX, int comprobsrY);
+	int frecuenciaBala = 20;
 	int getColor();
 	~EnemyShip();
 };

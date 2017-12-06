@@ -25,6 +25,7 @@ private:
 	SpriteBacth _spriteBatch;
 	GLTexture _texture;
 	vector<Vullet*> _bullets;
+	vector<Vullet*> _enemyBullets;
 	SpriteFont* _spriteFont;
 	Camera2D _hudCamera;
 	SpriteBacth _hudBatch;

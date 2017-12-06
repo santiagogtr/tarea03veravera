@@ -98,6 +98,11 @@ void GamePlayScreen::draw() {
 		_bullets[i]->draw(_spriteBatch);
 	}
 
+	for (size_t i = 0; i < _enemyBullets.size(); i++)
+	{
+		_enemyBullets[i]->draw(_spriteBatch);
+	}
+
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();
 
@@ -160,29 +165,51 @@ void GamePlayScreen::update() {
 	for (size_t i = 0; i < _enemies.size(); i++)
 	{
 		//_enemies[i]->gravity();
-		//_enemies[i]->update(0.1f);
+		if (_enemies[i]->update(0.1f, _ship)) {
+			_enemyBullets.push_back(new Vullet("Textures/naves/spaceMissiles_001.png", _enemies[i]->getPosition(), _enemies[i]->getFacing()));
+		}
 		if (_enemies[i]->outside()) {
 			_enemies.erase(_enemies.begin() + i);
 		}
 	}
+	for (size_t i = 0; i < _enemyBullets.size(); i++)
+	{
+
+		if (_enemyBullets[i]->update(0.1f, _window->getScreenWidth())) {
+			_enemyBullets.erase(_enemyBullets.begin() + i);
+		}
+		else {
+			EnemyShip* prov = new EnemyShip(55, 37, glm::vec2(
+				_enemyBullets[i]->_position.x, _enemyBullets[i]->_position.y),
+				"Textures/naves/amarillo.png", 1);
+			if (_ship->collideWithAgent(prov)) {
+				_enemyBullets.erase(_enemyBullets.begin() + i);
+				puntajeSuperTotal = puntajeTotal;
+				_currentState = ScreenState::CHANGE_NEXT;
+			}
+		}
+
+	}
 	for (size_t i = 0; i < _bullets.size(); i++)
 	{
-		
+
 		if (_bullets[i]->update(0.1f, _window->getScreenWidth())) {
 			_bullets.erase(_bullets.begin() + i);
 		}
+		else {
 
-		for (int e = 0; e < _enemies.size(); e++) {
-			EnemyShip* prov = new EnemyShip(55, 37, glm::vec2(
-				_bullets[i]->_position.x,_bullets[i]->_position.y ),
-				"Textures/naves/amarillo.png", 1);
-			if (_enemies[e]->collideWithAgent(prov)) {
-				_bullets.erase(_bullets.begin() + i);
-				_enemies.erase(_enemies.begin() + e);
-				puntaje += 10;
-				puntajeTotal += 10;
+			for (int e = 0; e < _enemies.size(); e++) {
+				EnemyShip* prov = new EnemyShip(55, 37, glm::vec2(
+					_bullets[i]->_position.x, _bullets[i]->_position.y),
+					"Textures/naves/amarillo.png", 1);
+				if (_enemies[e]->collideWithAgent(prov)) {
+					_bullets.erase(_bullets.begin() + i);
+					_enemies.erase(_enemies.begin() + e);
+					puntaje += 10;
+					puntajeTotal += 10;
+				}
+
 			}
-
 		}
 
 	}

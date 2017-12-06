@@ -84,7 +84,7 @@ void Agent::jump() {
 	}
 		if (_position.y <= posYJump) {
 			posYJump = _position.y;
-			contador = 20;
+			contador = 30;
 			jumping = false;
 		}
 
